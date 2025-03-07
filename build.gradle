@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'net.ltgt.errorprone' version '4.1.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jspecify:jspecify:1.0.0'
+    errorprone 'com.uber.nullaway:nullaway:0.12.4'
+    errorprone 'com.google.errorprone:error_prone_core:2.36.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone {
+        disableAllChecks = true // Other error prone checks are disabled
+        option("NullAway:OnlyNullMarked", "true")
+        option("NullAway:CustomContractAnnotations", "org.springframework.lang.Contract")
+        // Uncomment below if you are using Java 22+ compiled and you want to check generics nullness
+        // option("NullAway:JSpecifyMode", "true")
+    }
+}
+tasks.compileJava {
+    // The check defaults to a warning, bump it up to an error for the main sources
+    options.errorprone.error("NullAway")
+}
