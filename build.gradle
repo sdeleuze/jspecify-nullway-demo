@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'net.ltgt.errorprone' version '4.1.0' // https://github.com/tbroyer/gradle-errorprone-plugin
 }
 
 group = 'org.example'
@@ -11,4 +12,16 @@ repositories {
 
 dependencies {
     implementation 'org.jspecify:jspecify:1.0.0' // https://jspecify.org
+    errorprone 'com.uber.nullaway:nullaway:0.12.6' // https://github.com/uber/NullAway
+    errorprone 'com.google.errorprone:error_prone_core:2.37.0' // https://github.com/google/error-prone
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone {
+        disableAllChecks = true // Other error prone checks are disabled
+        option("NullAway:OnlyNullMarked", "true") // Enable nullness checks only in null-marked code
+    }
+}
+tasks.compileJava {
+    options.errorprone.error("NullAway") // bump checks from warnings (default) to errors
 }
