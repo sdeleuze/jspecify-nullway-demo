@@ -32,5 +32,6 @@ tasks.withType(JavaCompile).configureEach {
         option("NullAway:OnlyNullMarked", "true") // Enable nullness checks only in null-marked code
         error("NullAway") // bump checks from warnings (default) to errors
         option("NullAway:JSpecifyMode", "true") // https://github.com/uber/NullAway/wiki/JSpecify-Support
+        option("NullAway:JSpecifyMode", "true") // https://github.com/uber/NullAway/wiki/JSpecify-Support
     }
 }
