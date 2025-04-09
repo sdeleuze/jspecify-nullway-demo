@@ -9,5 +9,5 @@ interface TokenExtractor {
 	 * @param input the input to process
 	 * @return the extracted tokens
 	 */
-	@Nullable String[] extractTokens(String input);
+	String @Nullable [] extractTokens(String input);
 }

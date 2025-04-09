@@ -6,15 +6,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		TokenExtractor extractor = new DefaultTokenExtractor();
-		@Nullable String[] tokens = extractor.extractTokens("a,b,,d");
-		for (String token : tokens) {
-			if (token == null) {
-				System.out.println("No token detected");
-			}
-			else {
+		String @Nullable [] tokens = extractor.extractTokens("a,b,,d");
+		if (tokens == null) {
+			System.out.println("No tokens detected");
+		}
+		else {
+			for (String token : tokens) {
 				System.out.println("The token " + token + " has a length of " + token.length());
 			}
-
 		}
 	}
 }
