@@ -10,6 +10,16 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+}
+
 dependencies {
     implementation 'org.jspecify:jspecify:1.0.0' // https://jspecify.org
     errorprone 'com.uber.nullaway:nullaway:0.12.6' // https://github.com/uber/NullAway
@@ -21,5 +31,6 @@ tasks.withType(JavaCompile).configureEach {
         disableAllChecks = true // Other error prone checks are disabled
         option("NullAway:OnlyNullMarked", "true") // Enable nullness checks only in null-marked code
         error("NullAway") // bump checks from warnings (default) to errors
+        option("NullAway:JSpecifyMode", "true") // https://github.com/uber/NullAway/wiki/JSpecify-Support
     }
 }
