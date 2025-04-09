@@ -1,5 +1,8 @@
 package org.example;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 interface TokenExtractor {
 
 	/**
@@ -7,5 +10,5 @@ interface TokenExtractor {
 	 * @param input the input to process
 	 * @return the extracted token or {@code null} if not found
 	 */
-	String extractToken(String input);
+	@Nullable String extractToken(@NonNull String input);
 }
